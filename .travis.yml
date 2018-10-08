@@ -12,4 +12,5 @@ install: true
 script: 
   - dep ensure
   - make create-dotenv
+  - cat .env
   - make && make test
