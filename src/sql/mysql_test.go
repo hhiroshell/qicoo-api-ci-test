@@ -33,8 +33,10 @@ type mock struct {
 
 func isTravisEnv() bool {
 	if os.Getenv("IS_TRAVISENV") == "true" {
+		fmt.Println("travis env is true")
 		return true
 	}
+	fmt.Println("travis env is false")
 	return false
 }
 
