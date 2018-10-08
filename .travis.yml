@@ -9,6 +9,9 @@ before_install:
 
 install: true
 
+services:
+  - mysql
+
 script: 
   - dep ensure
   - make create-dotenv
