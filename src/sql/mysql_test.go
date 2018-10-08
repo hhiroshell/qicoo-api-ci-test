@@ -3,6 +3,7 @@ package sql_test
 import (
 	goSQL "database/sql"
 	"encoding/json"
+	"fmt"
 	"log"
 	"os"
 	"reflect"
