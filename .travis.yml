@@ -13,7 +13,7 @@ before_install:
 install: true
 
 before_script:
-  - mysql -uroot -e "create database TEST"
+  - mysql -uroot -e "create database test"
 
 script: 
   - dep ensure
