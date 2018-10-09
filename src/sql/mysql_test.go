@@ -57,6 +57,7 @@ func runTests(m *testing.M) int {
 		defer mysqld.Stop()
 
 		testMysqld = mysqld
+		fmt.Println(testMysqld.Datasource("test", "", "", 0))
 		mySQLDataSrc = testMysqld.Datasource("test", "", "", 0)
 	}
 
