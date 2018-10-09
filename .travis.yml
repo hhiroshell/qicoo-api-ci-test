@@ -20,7 +20,5 @@ before_script:
   - mysql -uroot -e "create database test"
 
 script: 
-  # - dep ensure
-  # - make create-dotenv
   - make
   - make test

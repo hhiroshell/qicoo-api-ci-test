@@ -89,13 +89,13 @@ func TestMappingDBandTable(t *testing.T) {
 		t.Fatal("db connection error:", err)
 	}
 	defer db.Close()
-	// if isTravisEnv() {
-	// 	databaseRow, err := db.Query(`CREATE DATABASE test`)
-	// 	if err != nil {
-	// 		t.Fatal("create databases error:", err)
-	// 	}
-	// 	defer databaseRow.Close()
-	// }
+	if isTravisEnv() {
+		databaseRow, err := db.Query(`CREATE DATABASE IF NOT EXISTS test`)
+		if err != nil {
+			t.Fatal("create databases error:", err)
+		}
+		defer databaseRow.Close()
+	}
 
 	fmt.Println("debug 3333")
 	tableRow, err := db.Query(`
