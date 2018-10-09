@@ -65,12 +65,14 @@ func runTests(m *testing.M) int {
 }
 
 func truncateTables() {
+	fmt.Println("debug AAAA")
 	db, err := goSQL.Open("mysql", mySQLDataSrc)
 	if err != nil {
 		log.Fatal("db connection error:", err)
 	}
 	defer db.Close()
 
+	fmt.Println("debug BBBB")
 	_, err = db.Exec("TRUNCATE test.mock")
 	if err != nil {
 		log.Fatal("truncate table error:", err)
@@ -78,22 +80,24 @@ func truncateTables() {
 }
 
 func TestMappingDBandTable(t *testing.T) {
+	fmt.Println("debug 1111")
 	defer truncateTables()
 
+	fmt.Println("debug 2222")
 	db, err := goSQL.Open("mysql", mySQLDataSrc)
 	if err != nil {
 		t.Fatal("db connection error:", err)
 	}
 	defer db.Close()
+	// if isTravisEnv() {
+	// 	databaseRow, err := db.Query(`CREATE DATABASE test`)
+	// 	if err != nil {
+	// 		t.Fatal("create databases error:", err)
+	// 	}
+	// 	defer databaseRow.Close()
+	// }
 
-	if isTravisEnv() {
-		databaseRow, err := db.Query(`CREATE DATABASE test`)
-		if err != nil {
-			t.Fatal("create databases error:", err)
-		}
-		defer databaseRow.Close()
-	}
-
+	fmt.Println("debug 3333")
 	tableRow, err := db.Query(`
 		CREATE TABLE test.mock (
 		id         INT          NOT NULL,
@@ -110,21 +114,25 @@ func TestMappingDBandTable(t *testing.T) {
 	}
 	defer tableRow.Close()
 
+	fmt.Println("debug 4444")
 	insertRow, err := db.Query("INSERT INTO test.mock VALUES (1, 'question', 'anonymous', '1', '1', 'I am mock', 'now', 'mock', 100000)")
 	if err != nil {
 		t.Fatal("insert row error:", err)
 	}
 	defer insertRow.Close()
 
+	fmt.Println("debug 5555")
 	m := sql.MappingDBandTable(db)
 	m.AddTableWithName(mock{}, "mock")
 
+	fmt.Println("debug 6666")
 	var mks []mock
 	_, err = m.Select(&mks, "SELECT * FROM test.mock WHERE id = 1")
 	if err != nil {
 		t.Fatal("select error:", err)
 	}
 
+	fmt.Println("debug 7777")
 	var mockComment string
 	var expectedComment = "I am mock"
 	for _, mk := range mks {
@@ -136,6 +144,7 @@ func TestMappingDBandTable(t *testing.T) {
 		mockComment = mk.Comment
 	}
 
+	fmt.Println("debug 8888")
 	if !reflect.DeepEqual(expectedComment, mockComment) {
 		t.Errorf("expected %q to eq %q", expectedComment, mockComment)
 	}
