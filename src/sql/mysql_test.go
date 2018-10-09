@@ -48,7 +48,7 @@ func TestMain(m *testing.M) {
 func runTests(m *testing.M) int {
 
 	if isTravisEnv() {
-		mySQLDataSrc = "root@tcp(localhost:3306)"
+		mySQLDataSrc = "root@tcp(localhost:3306)/test"
 	} else {
 		mysqld, err := mysqltest.NewMysqld(nil)
 		if err != nil {
