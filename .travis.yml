@@ -19,6 +19,6 @@ before_script:
   - mysql -uroot -e "create database test"
 
 script: 
-  # - dep ensure
+  - dep ensure
   - make
   - make test
