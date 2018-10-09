@@ -6,13 +6,8 @@ go:
 services:
   - mysql
 
-# before_install:
-#   - go get github.com/golang/lint/golint
-#   - go get github.com/golang/dep/cmd/dep
-
 install:
   - go get github.com/golang/lint/golint
-  # - go get github.com/golang/dep/cmd/dep
 
 before_script:
   - make clean-all
