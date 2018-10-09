@@ -13,10 +13,12 @@ before_install:
 install: true
 
 before_script:
+  - make clean-all
+  - make dep-install
+  - make deps
   - mysql -uroot -e "create database test"
 
 script: 
-  - dep ensure
-  - make create-dotenv
-  - cat .env
-  - make && make test
+  # - dep ensure
+  - make
+  - make test
